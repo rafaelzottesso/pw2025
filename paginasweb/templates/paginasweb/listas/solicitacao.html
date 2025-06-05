@@ -2,32 +2,26 @@
 
 {% load static %}
 
-{% block conteudo %}
-<h3>Lista de Campus cadastrados</h3>
+{% block conteudo %} <h3>Lista de solicitações</h3>
 
-<table border="1">
+<a href="{% url "cadastrar-solicitacao" %}" class="btn btn-green">Cadastrar nova solicitação</a>
 
-    <tr>
-        <th>Nome</th>
-        <th>Cadastrado em</th>
-        <th>Opções</th>
-    </tr>
+<table> <tr> <th>Solicitado por</th> <th>Curso</th> <th>Turma</th> <th>Tipo de Solicitação</th> <th>Justificativa</th> <th>Cadastrado em</th> <th>Gerenciar</th> </tr>
 
-    {% for campus in object_list %}
-    <tr>
-        <td>{{ campus.nome }}</td>
-        <td>{{ campus.cadastrado_em }}</td>
-        <td>
-            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
-            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhum registro encontrado.</td>
-    </tr>
-    {% endfor %}
-
+{% for solicitacao in object_list %}
+<tr>
+    <td>{{solicitacao.solicitado_por.nome}}</td>
+    <td>{{solicitacao.curso.nome}}</td>
+    <td>{{solicitacao.turma}}</td>
+    <td>{{solicitacao.tipo_solicitação.descricao}}</td>
+    <td>{{solicitacao.justificativa|truncatewords:10}}</td>
+    <td>{{solicitacao.cadastrado_em}}</td>
+    <td>
+        <a href="{% url "editar-solicitacao" solicitacao.pk %}">Editar</a>
+        <a href="{% url "excluir-solicitacao" solicitacao.pk %}">Excluir</a>
+    </td>
+</tr>   
+{% endfor %}
 </table>
 
 {% endblock %}

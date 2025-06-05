@@ -1,0 +1,358 @@
+/* ===========================================
+   CLASSES DE BOTÕES ESTILO TAILWIND CSS
+   =========================================== */
+/* Botões base */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+/* Tamanhos */
+.btn-xs {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+}
+.btn-md {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+.btn-xl {
+    padding: 16px 32px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+/* Variantes de cores principais */
+/* Azul (Primary) */
+.btn-blue {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+.btn-blue:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+.btn-blue:active {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+    transform: translateY(0);
+}
+/* Verde (Success) */
+.btn-green {
+    background-color: #10b981;
+    color: white;
+    border-color: #10b981;
+}
+.btn-green:hover {
+    background-color: #059669;
+    border-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+.btn-green:active {
+    background-color: #047857;
+    border-color: #047857;
+    transform: translateY(0);
+}
+/* Vermelho (Danger) */
+.btn-red {
+    background-color: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+.btn-red:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+.btn-red:active {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+    transform: translateY(0);
+}
+/* Amarelo (Warning) */
+.btn-yellow {
+    background-color: #f59e0b;
+    color: white;
+    border-color: #f59e0b;
+}
+.btn-yellow:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+.btn-yellow:active {
+    background-color: #b45309;
+    border-color: #b45309;
+    transform: translateY(0);
+}
+/* Cinza (Secondary) */
+.btn-gray {
+    background-color: #6b7280;
+    color: white;
+    border-color: #6b7280;
+}
+.btn-gray:hover {
+    background-color: #4b5563;
+    border-color: #4b5563;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.25);
+}
+.btn-gray:active {
+    background-color: #374151;
+    border-color: #374151;
+    transform: translateY(0);
+}
+/* Variantes outline */
+.btn-outline-blue {
+    background-color: transparent;
+    color: #3b82f6;
+    border-color: #3b82f6;
+}
+.btn-outline-blue:hover {
+    background-color: #3b82f6;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+.btn-outline-green {
+    background-color: transparent;
+    color: #10b981;
+    border-color: #10b981;
+}
+.btn-outline-green:hover {
+    background-color: #10b981;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+.btn-outline-red {
+    background-color: transparent;
+    color: #ef4444;
+    border-color: #ef4444;
+}
+.btn-outline-red:hover {
+    background-color: #ef4444;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+.btn-outline-gray {
+    background-color: transparent;
+    color: #6b7280;
+    border-color: #d1d5db;
+}
+.btn-outline-gray:hover {
+    background-color: #f9fafb;
+    color: #374151;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);
+}
+/* Variantes ghost (sem borda) */
+.btn-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: #6b7280;
+}
+.btn-ghost:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+.btn-ghost-blue {
+    background-color: transparent;
+    border-color: transparent;
+    color: #3b82f6;
+}
+.btn-ghost-blue:hover {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+}
+.btn-ghost-green {
+    background-color: transparent;
+    border-color: transparent;
+    color: #10b981;
+}
+.btn-ghost-green:hover {
+    background-color: #ecfdf5;
+    color: #047857;
+}
+.btn-ghost-red {
+    background-color: transparent;
+    border-color: transparent;
+    color: #ef4444;
+}
+.btn-ghost-red:hover {
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+/* Botão com largura total */
+.btn-full {
+    width: 100%;
+}
+/* Grupo de botões */
+.btn-group {
+    display: inline-flex;
+    vertical-align: middle;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+}
+.btn-group .btn:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin-left: 0;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.btn-group .btn:hover,
+.btn-group .btn:focus {
+    z-index: 1;
+}
+/* Botão com ícone */
+.btn-icon {
+    padding: 8px;
+    min-width: auto;
+}
+.btn-icon.btn-sm {
+    padding: 6px;
+}
+.btn-icon.btn-lg {
+    padding: 12px;
+}
+/* Loading state */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+/* Responsividade */
+@media (max-width: 768px) {
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.btn-lg {
+    padding: 12px 20px;
+    font-size: 15px;
+}
+
+.btn-group {
+    flex-direction: column;
+}
+
+.btn-group .btn {
+    margin-left: 0;
+    margin-top: -1px;
+    border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+}
+/* Classes utilitárias extras */
+.btn-rounded {
+    border-radius: 50px;
+}
+.btn-square {
+    border-radius: 0;
+}
+.btn-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-shadow:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+/* Estados especiais para formulários */
+.btn-submit {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    width: 100%;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.btn-submit:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+}
+.btn-submit:active {
+    background-color: #1d4ed8;
+    transform: translateY(0);
+}

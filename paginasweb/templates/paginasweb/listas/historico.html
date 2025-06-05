@@ -2,32 +2,22 @@
 
 {% load static %}
 
-{% block conteudo %}
-<h3>Lista de Campus cadastrados</h3>
+{% block conteudo %} <h3>Lista de histórico</h3>
 
-<table border="1">
+<table> <tr> <th>Solicitação</th> <th>Solicitado por</th> <th>Status</th> <th>Cadastrado em</th> <th>Gerenciar</th> </tr>
 
-    <tr>
-        <th>Nome</th>
-        <th>Cadastrado em</th>
-        <th>Opções</th>
-    </tr>
-
-    {% for campus in object_list %}
-    <tr>
-        <td>{{ campus.nome }}</td>
-        <td>{{ campus.cadastrado_em }}</td>
-        <td>
-            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
-            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhum registro encontrado.</td>
-    </tr>
-    {% endfor %}
-
+{% for historico in object_list %}
+<tr>
+    <td>{{historico.solicitacao.tipo_solicitação.descricao}}</td>
+    <td>{{historico.solicitacao.solicitado_por.nome}}</td>
+    <td>{{historico.status.nome}}</td>
+    <td>{{historico.cadastrado_em}}</td>
+    <td>
+        <a href="{% url "editar-historico" historico.pk %}">Editar</a>
+        <a href="{% url "excluir-historico" historico.pk %}">Excluir</a>
+    </td>
+</tr>   
+{% endfor %}
 </table>
 
 {% endblock %}

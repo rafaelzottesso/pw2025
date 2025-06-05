@@ -2,32 +2,24 @@
 
 {% load static %}
 
-{% block conteudo %}
-<h3>Lista de Campus cadastrados</h3>
+{% block conteudo %} <h3>Lista de servidores</h3>
 
-<table border="1">
+<a href="{% url "cadastrar-servidor" %}" class="btn btn-green">Cadastrar novo servidor</a>
 
-    <tr>
-        <th>Nome</th>
-        <th>Cadastrado em</th>
-        <th>Opções</th>
-    </tr>
+<table> <tr> <th>Nome</th> <th>SIAPE</th> <th>Email</th> <th>Cadastrado em</th> <th>Gerenciar</th> </tr>
 
-    {% for campus in object_list %}
-    <tr>
-        <td>{{ campus.nome }}</td>
-        <td>{{ campus.cadastrado_em }}</td>
-        <td>
-            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
-            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhum registro encontrado.</td>
-    </tr>
-    {% endfor %}
-
+{% for servidor in object_list %}
+<tr>
+    <td>{{servidor.nome}}</td>
+    <td>{{servidor.siape}}</td>
+    <td>{{servidor.email}}</td>
+    <td>{{servidor.cadastrado_em}}</td>
+    <td>
+        <a href="{% url "editar-servidor" servidor.pk %}">Editar</a>
+        <a href="{% url "excluir-servidor" servidor.pk %}">Excluir</a>
+    </td>
+</tr>   
+{% endfor %}
 </table>
 
 {% endblock %}

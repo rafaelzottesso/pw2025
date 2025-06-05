@@ -2,32 +2,26 @@
 
 {% load static %}
 
-{% block conteudo %}
-<h3>Lista de Campus cadastrados</h3>
+{% block conteudo %} <h3>Lista de alunos</h3>
 
-<table border="1">
+<a href="{% url "cadastrar-aluno" %}" class="btn btn-green">Cadastrar novo aluno</a>
 
-    <tr>
-        <th>Nome</th>
-        <th>Cadastrado em</th>
-        <th>Opções</th>
-    </tr>
+<table> <tr> <th>Nome</th> <th>Matrícula</th> <th>CPF</th> <th>Email</th> <th>Telefone</th> <th>Cadastrado em</th> <th>Gerenciar</th> </tr>
 
-    {% for campus in object_list %}
-    <tr>
-        <td>{{ campus.nome }}</td>
-        <td>{{ campus.cadastrado_em }}</td>
-        <td>
-            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
-            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhum registro encontrado.</td>
-    </tr>
-    {% endfor %}
-
+{% for aluno in object_list %}
+<tr>
+    <td>{{aluno.nome}}</td>
+    <td>{{aluno.matrícula}}</td>
+    <td>{{aluno.cpf}}</td>
+    <td>{{aluno.email}}</td>
+    <td>{{aluno.telefone}}</td>
+    <td>{{aluno.cadastrado_em}}</td>
+    <td>
+        <a href="{% url "editar-aluno" aluno.pk %}">Editar</a>
+        <a href="{% url "excluir-aluno" aluno.pk %}">Excluir</a>
+    </td>
+</tr>   
+{% endfor %}
 </table>
 
 {% endblock %}
