@@ -1,0 +1,33 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block conteudo %}
+<h3>Lista de Campus cadastrados</h3>
+
+<table border="1">
+
+    <tr>
+        <th>Nome</th>
+        <th>Cadastrado em</th>
+        <th>Opções</th>
+    </tr>
+
+    {% for campus in object_list %}
+    <tr>
+        <td>{{ campus.nome }}</td>
+        <td>{{ campus.cadastrado_em }}</td>
+        <td>
+            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
+            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">Nenhum registro encontrado.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

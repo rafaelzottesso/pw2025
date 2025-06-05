@@ -286,3 +286,33 @@ class CampusList(ListView):
 class CursoList(ListView):
     model = Curso
     template_name = 'paginasweb/listas/curso.html'
+
+
+class TipoSolicitacaoList(ListView):
+    model = TipoSolicitacao
+    template_name = 'paginasweb/listas/tipo_solicitacao.html'
+
+
+class StatusList(ListView):
+    model = Status
+    template_name = 'paginasweb/listas/status.html'
+
+
+class AlunoList(ListView):
+    model = Aluno
+    template_name = 'paginasweb/listas/aluno.html'
+
+
+class ServidorList(ListView):
+    model = Servidor
+    template_name = 'paginasweb/listas/servidor.html'
+
+
+class SolicitacaoList(ListView):
+    model = Solicitacao
+    template_name = 'paginasweb/listas/solicitacao.html'
+
+
+class HistoricoList(ListView):
+    model = Historico
+    template_name = 'paginasweb/listas/historico.html'

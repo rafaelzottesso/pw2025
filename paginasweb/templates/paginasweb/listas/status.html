@@ -1,0 +1,32 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block conteudo %}
+<h3>Lista de status</h3>
+
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Campus</th>
+        <th>Cadastrado em</th>
+        <th>Cadastrado em</th>
+        <th>Gerenciar</th>
+    </tr>
+
+    {% for status in object_list %}
+    <tr>
+        <td>{{status.nome}}</td>
+        <td>{{status.ordem}}</td>
+        <td>{{status.pode_editar}}</td>
+        <td>{{status.cadastrado_em}}</td>
+        <td>
+            <a href="{% url "editar-status" status.pk %}">Editar</a>
+            <a href="{% url "excluir-status" status.pk %}">Excluir</a>
+        </td>
+    </tr>   
+    {% endfor %}
+
+</table>
+
+{% endblock %}

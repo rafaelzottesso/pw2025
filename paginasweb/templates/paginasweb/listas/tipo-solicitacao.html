@@ -1,0 +1,36 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block conteudo %}
+<h3>Lista de tipos de solicitação</h3>
+
+<table>
+    <tr>
+        <th>Descrição</th>
+        <th>Prazo Externo</th>
+        <th>Dias</th>
+        <th>Prazo Interno</th>
+        <th>Dias</th>
+        <th>Cadastrado em</th>
+        <th>Gerenciar</th>
+    </tr>
+
+    {% for ts in object_list %}
+    <tr>
+        <td>{{ts.descricao}}</td>
+        <td>{{ts.prazo_externo}}</td>
+        <td>{{ts.prazo_externo_dias}}</td>
+        <td>{{ts.prazo_interno}}</td>
+        <td>{{ts.prazo_interno_dias}}</td>
+        <td>{{ts.cadastrado_em}}</td>
+        <td>
+            <a href="{% url "editar-tipo-solicitacao" ts.pk %}">Editar</a>
+            <a href="{% url "excluir-tipo-solicitacao" ts.pk %}">Excluir</a>
+        </td>
+    </tr>   
+    {% endfor %}
+
+</table>
+
+{% endblock %}

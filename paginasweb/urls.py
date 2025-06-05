@@ -3,7 +3,7 @@ from .views import IndexView, SobreView
 from .views import CampusCreate, CursoCreate, TipoSolicitacaoCreate, StatusCreate, AlunoCreate, ServidorCreate, SolicitacaoCreate, HistoricoCreate
 from .views import CampusUpdate, CursoUpdate, TipoSolicitacaoUpdate, StatusUpdate, AlunoUpdate, ServidorUpdate, SolicitacaoUpdate, HistoricoUpdate
 from .views import CampusDelete, CursoDelete, TipoSolicitacaoDelete, StatusDelete, AlunoDelete, ServidorDelete, SolicitacaoDelete, HistoricoDelete
-from .views import CampusList, CursoList
+from .views import CampusList, CursoList, TipoSolicitacaoList, StatusList, AlunoList, ServidorList, SolicitacaoList, HistoricoList
 
 
 urlpatterns = [
@@ -44,6 +44,14 @@ urlpatterns = [
     path("excluir/solicitacao/<int:pk>/", SolicitacaoDelete.as_view(), name="excluir-solicitacao"),
     path("excluir/historico/<int:pk>/", HistoricoDelete.as_view(), name="excluir-historico"),  # URL para excluir um histórico
 
+    # URLS para listar objetos
     path("listar/campi/", CampusList.as_view(), name="listar-campus"),
     path("listar/cursos/", CursoList.as_view(), name="listar-curso"),
+    path("listar/tipos-solicitacao/", TipoSolicitacaoList.as_view(), name="listar-tipo-solicitacao"),
+    path("listar/status/", StatusList.as_view(), name="listar-status"),
+    path("listar/alunos/", AlunoList.as_view(), name="listar-aluno"),
+    path("listar/servidores/", ServidorList.as_view(), name="listar-servidor"),
+    path("listar/solicitacoes/", SolicitacaoList.as_view(), name="listar-solicitacao"),
+    path("listar/historicos/", HistoricoList.as_view(), name="listar-historico"),  # URL para listar históricos
+    
 ]
