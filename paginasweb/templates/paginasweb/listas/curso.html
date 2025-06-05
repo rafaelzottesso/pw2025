@@ -1,0 +1,30 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block conteudo %}
+<h3>Lista de Cursos</h3>
+
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Campus</th>
+        <th>Cadastrado em</th>
+        <th>Gerenciar</th>
+    </tr>
+
+    {% for curso in object_list %}
+    <tr>
+        <td>{{curso.nome}}</td>
+        <td>{{curso.campus}}</td>
+        <td>{{curso.cadastrado_em}}</td>
+        <td>
+            <a href="{% url "editar-curso" curso.pk %}">Editar</a>
+            <a href="{% url "excluir-curso" curso.pk %}">Excluir</a>
+        </td>
+    </tr>   
+    {% endfor %}
+
+</table>
+
+{% endblock %}

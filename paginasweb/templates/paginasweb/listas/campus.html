@@ -13,13 +13,13 @@
         <th>Opções</th>
     </tr>
 
-    {% for obj in object_list %}
+    {% for campus in object_list %}
     <tr>
-        <td>{{ obj.nome }}</td>
-        <td>{{ obj.cadastrado_em }}</td>
+        <td>{{ campus.nome }}</td>
+        <td>{{ campus.cadastrado_em }}</td>
         <td>
-            <a href="#">Editar</a>
-            <a href="#">Excluir</a>
+            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
+            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
         </td>
     </tr>
     {% empty %}

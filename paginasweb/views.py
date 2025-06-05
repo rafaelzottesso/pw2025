@@ -17,7 +17,7 @@ class CampusCreate(CreateView):
     model = Campus
     template_name = 'paginasweb/form.html'
     fields = ['nome']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-campus')
     extra_context = {
         'titulo': 'Cadastrar Campus',
         'botao': 'Cadastrar',
@@ -28,7 +28,7 @@ class CursoCreate(CreateView):
     model = Curso
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'campus']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-curso')
     extra_context = {
         'titulo': 'Cadastrar Curso',
         'botao': 'Cadastrar',
@@ -108,7 +108,7 @@ class CampusUpdate(UpdateView):
     model = Campus
     template_name = 'paginasweb/form.html'
     fields = ['nome']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-campus')
     extra_context = {
         'titulo': 'Atualização de dados do Campus',
         'botao': 'Salvar',
@@ -119,7 +119,7 @@ class CursoUpdate(UpdateView):
     model = Curso
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'campus']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-curso')
     extra_context = {
         'titulo': 'Atualização de dados do Curso',
         'botao': 'Salvar',
@@ -198,7 +198,7 @@ class HistoricoUpdate(UpdateView):
 class CampusDelete(DeleteView):
     model = Campus
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-campus')
     extra_context = {
         'titulo': 'Excluir Campus',
         'botao': 'Excluir',
@@ -208,7 +208,7 @@ class CampusDelete(DeleteView):
 class CursoDelete(DeleteView):
     model = Curso
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-curso')
     extra_context = {
         'titulo': 'Excluir Curso',
         'botao': 'Excluir',
@@ -280,5 +280,9 @@ class HistoricoDelete(DeleteView):
 
 class CampusList(ListView):
     model = Campus
-    template_name = 'paginasweb/campus.html'
+    template_name = 'paginasweb/listas/campus.html'
     
+
+class CursoList(ListView):
+    model = Curso
+    template_name = 'paginasweb/listas/curso.html'
