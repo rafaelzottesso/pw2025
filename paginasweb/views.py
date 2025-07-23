@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 
 from .models import Campus, Curso, TipoSolicitacao, Status, Aluno, Servidor, Solicitacao, Historico
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class IndexView(TemplateView):
     template_name = 'paginasweb/index.html'
@@ -13,7 +15,7 @@ class SobreView(TemplateView):
     template_name = 'paginasweb/sobre.html'
 
 
-class CampusCreate(CreateView):
+class CampusCreate(LoginRequiredMixin, CreateView):
     model = Campus
     template_name = 'paginasweb/form.html'
     fields = ['nome']
@@ -24,7 +26,7 @@ class CampusCreate(CreateView):
     }
  
 
-class CursoCreate(CreateView):
+class CursoCreate(LoginRequiredMixin, CreateView):
     model = Curso
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'campus']
@@ -35,7 +37,7 @@ class CursoCreate(CreateView):
     }
 
 
-class TipoSolicitacaoCreate(CreateView):
+class TipoSolicitacaoCreate(LoginRequiredMixin, CreateView):
     model = TipoSolicitacao
     template_name = 'paginasweb/form.html'
     fields = ['descricao', 'prazo_externo', 'prazo_externo_dias', 'prazo_interno', 'prazo_interno_dias']
@@ -46,7 +48,7 @@ class TipoSolicitacaoCreate(CreateView):
     }
 
 
-class StatusCreate(CreateView):
+class StatusCreate(LoginRequiredMixin, CreateView):
     model = Status
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'ordem', 'pode_editar']
@@ -57,7 +59,7 @@ class StatusCreate(CreateView):
     }
 
 
-class AlunoCreate(CreateView):
+class AlunoCreate(LoginRequiredMixin, CreateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'matrícula', 'cpf', 'email', 'telefone']
@@ -68,7 +70,7 @@ class AlunoCreate(CreateView):
     }
 
 
-class ServidorCreate(CreateView):
+class ServidorCreate(LoginRequiredMixin, CreateView):
     model = Servidor
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'siape', 'email']
@@ -79,7 +81,7 @@ class ServidorCreate(CreateView):
     }
 
 
-class SolicitacaoCreate(CreateView):
+class SolicitacaoCreate(LoginRequiredMixin, CreateView):
     model = Solicitacao
     template_name = 'paginasweb/form.html'
     fields = ['solicitado_por', 'curso', 'turma', 'tipo_solicitação', 'justificativa']
@@ -90,7 +92,7 @@ class SolicitacaoCreate(CreateView):
     }
 
 
-class HistoricoCreate(CreateView):
+class HistoricoCreate(LoginRequiredMixin, CreateView):
     model = Historico
     template_name = 'paginasweb/form.html'
     fields = ['solicitacao', 'status']
@@ -104,7 +106,7 @@ class HistoricoCreate(CreateView):
 ##################################################
 
 
-class CampusUpdate(UpdateView):
+class CampusUpdate(LoginRequiredMixin, UpdateView):
     model = Campus
     template_name = 'paginasweb/form.html'
     fields = ['nome']
@@ -115,7 +117,7 @@ class CampusUpdate(UpdateView):
     }
 
 
-class CursoUpdate(UpdateView):
+class CursoUpdate(LoginRequiredMixin, UpdateView):
     model = Curso
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'campus']
@@ -126,7 +128,7 @@ class CursoUpdate(UpdateView):
     }
 
 
-class TipoSolicitacaoUpdate(UpdateView):
+class TipoSolicitacaoUpdate(LoginRequiredMixin, UpdateView):
     model = TipoSolicitacao
     template_name = 'paginasweb/form.html'
     fields = ['descricao', 'prazo_externo', 'prazo_externo_dias', 'prazo_interno', 'prazo_interno_dias']
@@ -137,7 +139,7 @@ class TipoSolicitacaoUpdate(UpdateView):
     }
 
 
-class StatusUpdate(UpdateView):
+class StatusUpdate(LoginRequiredMixin, UpdateView):
     model = Status
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'ordem', 'pode_editar']
@@ -148,7 +150,7 @@ class StatusUpdate(UpdateView):
     }
 
 
-class AlunoUpdate(UpdateView):
+class AlunoUpdate(LoginRequiredMixin, UpdateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'matrícula', 'cpf', 'email', 'telefone']
@@ -159,7 +161,7 @@ class AlunoUpdate(UpdateView):
     }
 
 
-class ServidorUpdate(UpdateView):
+class ServidorUpdate(LoginRequiredMixin, UpdateView):
     model = Servidor
     template_name = 'paginasweb/form.html'
     fields = ['nome', 'siape', 'email']
@@ -170,7 +172,7 @@ class ServidorUpdate(UpdateView):
     }
 
 
-class SolicitacaoUpdate(UpdateView):
+class SolicitacaoUpdate(LoginRequiredMixin, UpdateView):
     model = Solicitacao
     template_name = 'paginasweb/form.html'
     fields = ['solicitado_por', 'curso', 'turma', 'tipo_solicitação', 'justificativa']
@@ -181,7 +183,7 @@ class SolicitacaoUpdate(UpdateView):
     }
 
 
-class HistoricoUpdate(UpdateView):
+class HistoricoUpdate(LoginRequiredMixin, UpdateView):
     model = Historico
     template_name = 'paginasweb/form.html'
     fields = ['solicitacao', 'status']
@@ -195,7 +197,7 @@ class HistoricoUpdate(UpdateView):
 ##################################################
 
 
-class CampusDelete(DeleteView):
+class CampusDelete(LoginRequiredMixin, DeleteView):
     model = Campus
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-campus')
@@ -205,7 +207,7 @@ class CampusDelete(DeleteView):
     }
 
 
-class CursoDelete(DeleteView):
+class CursoDelete(LoginRequiredMixin, DeleteView):
     model = Curso
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-curso')
@@ -215,7 +217,7 @@ class CursoDelete(DeleteView):
     }
 
 
-class TipoSolicitacaoDelete(DeleteView):
+class TipoSolicitacaoDelete(LoginRequiredMixin, DeleteView):
     model = TipoSolicitacao
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-tipo-solicitacao')
@@ -225,7 +227,7 @@ class TipoSolicitacaoDelete(DeleteView):
     }
 
 
-class StatusDelete(DeleteView):
+class StatusDelete(LoginRequiredMixin, DeleteView):
     model = Status
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-status')
@@ -235,7 +237,7 @@ class StatusDelete(DeleteView):
     }
 
 
-class AlunoDelete(DeleteView):
+class AlunoDelete(LoginRequiredMixin, DeleteView):
     model = Aluno
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-aluno')
@@ -245,7 +247,7 @@ class AlunoDelete(DeleteView):
     }
 
 
-class ServidorDelete(DeleteView):
+class ServidorDelete(LoginRequiredMixin, DeleteView):
     model = Servidor
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-servidor')
@@ -255,7 +257,7 @@ class ServidorDelete(DeleteView):
     }
 
 
-class SolicitacaoDelete(DeleteView):
+class SolicitacaoDelete(LoginRequiredMixin, DeleteView):
     model = Solicitacao
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-solicitacao')
@@ -265,7 +267,7 @@ class SolicitacaoDelete(DeleteView):
     }
 
 
-class HistoricoDelete(DeleteView):
+class HistoricoDelete(LoginRequiredMixin, DeleteView):
     model = Historico
     template_name = 'paginasweb/form.html'
     success_url = reverse_lazy('listar-historico')
@@ -278,41 +280,41 @@ class HistoricoDelete(DeleteView):
 ##################################################
 
 
-class CampusList(ListView):
+class CampusList(LoginRequiredMixin, ListView):
     model = Campus
     template_name = 'paginasweb/listas/campus.html'
     
 
-class CursoList(ListView):
+class CursoList(LoginRequiredMixin, ListView):
     model = Curso
     template_name = 'paginasweb/listas/curso.html'
 
 
-class TipoSolicitacaoList(ListView):
+class TipoSolicitacaoList(LoginRequiredMixin, ListView):
     model = TipoSolicitacao
     template_name = 'paginasweb/listas/tipo-solicitacao.html'
 
 
-class StatusList(ListView):
+class StatusList(LoginRequiredMixin, ListView):
     model = Status
     template_name = 'paginasweb/listas/status.html'
 
 
-class AlunoList(ListView):
+class AlunoList(LoginRequiredMixin, ListView):
     model = Aluno
     template_name = 'paginasweb/listas/aluno.html'
 
 
-class ServidorList(ListView):
+class ServidorList(LoginRequiredMixin, ListView):
     model = Servidor
     template_name = 'paginasweb/listas/servidor.html'
 
 
-class SolicitacaoList(ListView):
+class SolicitacaoList(LoginRequiredMixin, ListView):
     model = Solicitacao
     template_name = 'paginasweb/listas/solicitacao.html'
 
 
-class HistoricoList(ListView):
+class HistoricoList(LoginRequiredMixin, ListView):
     model = Historico
     template_name = 'paginasweb/listas/historico.html'

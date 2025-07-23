@@ -4,12 +4,33 @@ from .views import CampusCreate, CursoCreate, TipoSolicitacaoCreate, StatusCreat
 from .views import CampusUpdate, CursoUpdate, TipoSolicitacaoUpdate, StatusUpdate, AlunoUpdate, ServidorUpdate, SolicitacaoUpdate, HistoricoUpdate
 from .views import CampusDelete, CursoDelete, TipoSolicitacaoDelete, StatusDelete, AlunoDelete, ServidorDelete, SolicitacaoDelete, HistoricoDelete
 from .views import CampusList, CursoList, TipoSolicitacaoList, StatusList, AlunoList, ServidorList, SolicitacaoList, HistoricoList
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     
     path('', IndexView.as_view(), name='index'),  # URL para a página inicial
     path("sobre/", SobreView.as_view(), name="sobre"),
+
+    # URL para autenticação do usuário
+    path("login/", auth_views.LoginView.as_view( 
+         template_name = 'paginasweb/form.html',
+         extra_context = {
+             'titulo': 'Autenticação',
+             'botao' : 'Entrar',
+         }
+    ),name="login"),
+
+    #criar uma rota de logout
+    path("sair/", auth_views.LogoutView.as_view(), name="logout"),
+
+    # Rota para alterar a senha do usuário autenticado
+    path("senha/", auth_views.PasswordChangeView.as_view( 
+         template_name = 'paginasweb/form.html',
+         extra_context = {
+             'titulo': 'Atualizar senha',
+             'botao' : 'Salvar',
+         }
+    ),name="alterar-senha"),
 
     path("cadastrar/campus/", CampusCreate.as_view(), name="cadastrar-campus"),  # URL para criar um novo campus
     path("cadastrar/curso/", CursoCreate.as_view(), name="cadastrar-curso"),  # URL para criar um novo curso

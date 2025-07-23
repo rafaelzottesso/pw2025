@@ -28,6 +28,7 @@
         <li><a href="{% url "index" %}">Início</a></li>
         <li><a href="{% url "sobre" %}">Sobre nós</a></li>
 
+        {% if  request.user.is_authenticated %}  
         <li><a href="{% url "listar-campus" %}">Campus</a></li>
         <li><a href="{% url "listar-curso" %}">Curso</a></li>
         <li><a href="{% url "listar-tipo-solicitacao" %}">Tipo Solicitação</a></li>
@@ -36,6 +37,12 @@
         <li><a href="{% url "listar-servidor" %}">Servidor</a></li>
         <li><a href="{% url "listar-solicitacao" %}">Solicitação</a></li>
         <li><a href="{% url "listar-historico" %}">Histórico</a></li>
+        <li><a href="{% url "alterar-senha" %}">Alterar Senha</a></li>
+        <li><a href="{% url "logout" %}">Sair</a></li>
+        
+        {% else %}
+        <li><a href="{% url "login" %}">Entrar</a></li>
+        {% endif %}
 
     </ul>
 
