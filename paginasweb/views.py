@@ -62,7 +62,7 @@ class StatusCreate(LoginRequiredMixin, CreateView):
 class AlunoCreate(LoginRequiredMixin, CreateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'matrícula', 'cpf', 'email', 'telefone']
+    fields = ['nome', 'matrícula', 'cpf', 'telefone']
     success_url = reverse_lazy('listar-aluno')
     extra_context = {
         'titulo': 'Cadastrar Aluno',
@@ -73,7 +73,7 @@ class AlunoCreate(LoginRequiredMixin, CreateView):
 class ServidorCreate(LoginRequiredMixin, CreateView):
     model = Servidor
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'siape', 'email']
+    fields = ['nome', 'siape']
     success_url = reverse_lazy('listar-servidor')
     extra_context = {
         'titulo': 'Cadastrar Servidor',
@@ -153,7 +153,7 @@ class StatusUpdate(LoginRequiredMixin, UpdateView):
 class AlunoUpdate(LoginRequiredMixin, UpdateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'matrícula', 'cpf', 'email', 'telefone']
+    fields = ['nome', 'matrícula', 'cpf', 'telefone']
     success_url = reverse_lazy('listar-aluno')
     extra_context = {
         'titulo': 'Atualização de dados do Aluno',
@@ -164,7 +164,7 @@ class AlunoUpdate(LoginRequiredMixin, UpdateView):
 class ServidorUpdate(LoginRequiredMixin, UpdateView):
     model = Servidor
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'siape', 'email']
+    fields = ['nome', 'siape']
     success_url = reverse_lazy('listar-servidor')
     extra_context = {
         'titulo': 'Atualização de dados do Servidor',

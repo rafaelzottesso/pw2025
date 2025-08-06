@@ -1,5 +1,8 @@
 from django.db import models
 
+# import User
+from django.contrib.auth.models import User
+
 # Todas as classes DEVEM ter a herança para a classe Model que está dentro de "models"
 # class SuaClasse(models.Model):
 #   atributo = models.TipoDeAtributo(propriedade1=valor1, p2="v2", p3=v3)
@@ -42,16 +45,16 @@ class Aluno(models.Model):
     nome = models.CharField(max_length=100)
     matrícula = models.CharField(max_length=100)
     cpf = models.CharField(max_length=100)
-    email = models.EmailField(max_length=200)
     telefone = models.CharField(max_length=14)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='aluno')
 
 
 class Servidor(models.Model):
     nome = models.CharField(max_length=100)
     siape = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='servidor')
 
 
 class Solicitacao(models.Model):
