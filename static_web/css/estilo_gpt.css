@@ -1,0 +1,485 @@
+/* Reset e configurações gerais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8fafc;
+    color: #334155;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Menu de navegação responsivo */
+#menu {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+
+#menu li {
+    margin: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+}
+
+#menu a:hover {
+    color: #3b82f6;
+    background: #f1f5f9;
+    border-bottom-color: #3b82f6;
+}
+
+#menu a:active,
+#menu a.active {
+    color: #1e40af;
+    background: #eff6ff;
+    border-bottom-color: #1e40af;
+}
+
+/* Botão hamburger para mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 16px 20px;
+    color: #64748b;
+}
+
+/* Conteúdo principal */
+#conteudo {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+#conteudo h3 {
+    font-size: 32px;
+    font-weight: 300;
+    color: #1e293b;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* Texto de campos obrigatórios */
+#conteudo > p {
+    font-size: 14px;
+    color: #ef4444;
+    text-align: center;
+    margin-bottom: 32px;
+    font-style: italic;
+    background: #fef2f2;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #ef4444;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+}
+
+#conteudo > p::before {
+    content: "⚠️";
+    margin-right: 8px;
+}
+
+/* Parágrafos do conteúdo geral */
+#conteudo p:not(form p) {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #475569;
+    max-width: 800px;
+    margin: 0 auto 24px;
+    text-align: justify;
+}
+
+#conteudo b {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Container do formulário */
+form {
+    background: white;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+}
+
+/* Título do formulário */
+.form-title {
+    font-size: 28px;
+    font-weight: 300;
+    color: #1e293b;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Estilo dos parágrafos (campos) */
+form p {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+/* Labels com indicador de obrigatório melhorado */
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+/* Indicador de campo obrigatório */
+input[required] + label::after,
+textarea[required] + label::after,
+select[required] + label::after,
+label[for] {
+    position: relative;
+}
+
+label[for]::after {
+    content: '';
+}
+
+/* Busca por input obrigatório após o label */
+input[required]::before,
+textarea[required]::before,
+select[required]::before {
+    content: '';
+}
+
+/* Solução alternativa para campos obrigatórios */
+label {
+    position: relative;
+}
+
+form p:has(input[required]) label::after,
+form p:has(textarea[required]) label::after,
+form p:has(select[required]) label::after {
+    content: ' *';
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* Todos os tipos de input */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    outline: none;
+    color: #374151;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    background: #ffffff;
+}
+
+/* Input number específico */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Select específico */
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 48px;
+}
+
+/* Textarea específico */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+/* Help Text */
+.helptext,
+.help-text,
+span.helptext,
+div.helptext,
+small.helptext {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 6px;
+    line-height: 1.4;
+    font-style: italic;
+    background: #f9fafb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 3px solid #e5e7eb;
+    position: relative;
+}
+
+.helptext::before,
+.help-text::before {
+    content: "💡";
+    margin-right: 6px;
+    font-style: normal;
+}
+
+/* Help text quando o campo está em foco */
+input:focus + .helptext,
+input:focus ~ .helptext,
+textarea:focus + .helptext,
+textarea:focus ~ .helptext,
+select:focus + .helptext,
+select:focus ~ .helptext {
+    color: #3b82f6;
+    border-left-color: #3b82f6;
+    background: #eff6ff;
+}
+
+/* Botão de submit */
+button[type="submit"] {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+    background: #1d4ed8;
+}
+
+/* Hover nos campos */
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: #9ca3af;
+}
+
+/* Rodapé */
+#rodape {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    /* Mostra o botão hamburger */
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* Esconde o menu por padrão em mobile */
+    #menu {
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: white;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Menu ativo (visível) */
+    #menu.active {
+        left: 0;
+    }
+    
+    #menu li {
+        width: 100%;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    #menu a {
+        padding: 16px 20px;
+        border-bottom: none;
+        border-left: 4px solid transparent;
+        width: 100%;
+    }
+    
+    #menu a:hover,
+    #menu a:active,
+    #menu a.active {
+        border-left-color: #3b82f6;
+        border-bottom-color: transparent;
+        background: #f1f5f9;
+    }
+    
+    /* Ajuste do conteúdo */
+    #conteudo {
+        padding: 20px 15px;
+        margin-top: 0;
+    }
+    
+    #conteudo h3 {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+    
+    form {
+        margin: 20px 10px;
+        padding: 24px;
+        border-radius: 8px;
+    }
+    
+    .form-title {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    input,
+    textarea,
+    select {
+        padding: 12px 14px;
+        font-size: 16px;
+    }
+    
+    button[type="submit"] {
+        padding: 12px 24px;
+    }
+    
+    .helptext,
+    .help-text {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+}
+
+/* Muito pequeno - smartphones */
+@media (max-width: 480px) {
+    #conteudo {
+        padding: 15px 10px;
+    }
+    
+    #conteudo h3 {
+        font-size: 24px;
+    }
+    
+    form {
+        padding: 20px;
+        margin: 15px 5px;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#conteudo {
+    animation: fadeIn 0.6s ease-out;
+}
+
+form {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Layout para telas grandes */
+@media (min-width: 1200px) {
+    #conteudo {
+        padding: 60px 40px;
+    }
+    
+    form {
+        padding: 50px;
+    }
+}
