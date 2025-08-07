@@ -88,13 +88,24 @@ WSGI_APPLICATION = 'pw2025.wsgi.application'
 # }
 
 # Sqlite local
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',  # Usando o banco de dados SQLite local
+#     }
+# }
+
+# Mysql do PythonAnywhere
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Usando o banco de dados SQLite local
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rafaelzottesso$default',
+        'USER': 'rafaelzottesso',
+        'PASSWORD': 'PW2025_mysql_xyz',
+        'HOST': 'rafaelzottesso.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
