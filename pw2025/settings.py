@@ -104,6 +104,9 @@ DATABASES = {
         'PASSWORD': 'PW2025_mysql_xyz',
         'HOST': 'rafaelzottesso.mysql.pythonanywhere-services.com',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
 
