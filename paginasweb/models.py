@@ -18,11 +18,18 @@ class Campus(models.Model):
     nome = models.CharField(max_length=100)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
 
+    # Texto que vai aparecer no select de outras classes, como no cadastro de Curso, por exemplo.
+    def __str__(self):
+        return self.nome
+
 
 class Curso(models.Model):
     nome = models.CharField(max_length=150)
     campus = models.ForeignKey(Campus, on_delete=models.PROTECT)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nome} ({self.campus})"
 
 
 class TipoSolicitacao(models.Model):
@@ -33,12 +40,21 @@ class TipoSolicitacao(models.Model):
     prazo_interno_dias = models.PositiveSmallIntegerField(default=0)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.descricao
+
 
 class Status(models.Model):
     nome = models.CharField(max_length=100)
     ordem = models.PositiveSmallIntegerField()
     pode_editar = models.BooleanField(help_text="Marque essa opção se for permitido atualizar a solicição com este Status.")
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ordem} - {self.nome}"
+    
+    class Meta:
+        ordering = ['ordem']
 
 
 class Aluno(models.Model):
@@ -49,12 +65,18 @@ class Aluno(models.Model):
     cadastrado_em = models.DateTimeField(auto_now_add=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='aluno')
 
+    def __str__(self):
+        return f"{self.nome} ({self.matrícula})"
+
 
 class Servidor(models.Model):
     nome = models.CharField(max_length=100)
     siape = models.CharField(max_length=100)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='servidor')
+
+    def __str__(self):
+        return f"{self.nome} ({self.siape})"
 
 
 class Solicitacao(models.Model):
@@ -65,8 +87,14 @@ class Solicitacao(models.Model):
     justificativa = models.TextField()
     cadastrado_em = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"#{self.pk} - {self.tipo_solicitação}"
+
 
 class Historico(models.Model):
     solicitacao = models.ForeignKey(Solicitacao, on_delete=models.PROTECT)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.solicitacao} - {self.status}"
