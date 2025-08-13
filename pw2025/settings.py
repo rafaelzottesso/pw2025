@@ -43,9 +43,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+
+    # Adicionado o whitenoise depois do SecurityMiddleware para servir arquivos estáticos no Azure
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -146,7 +148,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Define o armazenamento de arquivos estáticos com o whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ] # Configura o diretório de arquivos estáticos que fica na raiz do projeto
 STATIC_ROOT = BASE_DIR / 'static_web'  # Diretório onde os arquivos estáticos serão coletados
@@ -163,9 +167,9 @@ LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
 
-
-# Configurações de segurança
+# Configurações de segurança para permitir que o csrf_token funcione corretamente nos formulários quando hospedados no Azure
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-CSRF_TRUSTED_ORIGINS
+
 CSRF_TRUSTED_ORIGINS = [
     'https://*.azurewebsites.net',   
 ]
