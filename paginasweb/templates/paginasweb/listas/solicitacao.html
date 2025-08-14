@@ -10,7 +10,7 @@
 
 {% for solicitacao in object_list %}
 <tr>
-    <td>{{solicitacao.solicitado_por.nome}}</td>
+    <td>{{solicitacao.solicitado_por}}</td>
     <td>{{solicitacao.curso.nome}}</td>
     <td>{{solicitacao.turma}}</td>
     <td>{{solicitacao.tipo_solicitação.descricao}}</td>

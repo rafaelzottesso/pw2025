@@ -62,7 +62,7 @@ class StatusCreate(LoginRequiredMixin, CreateView):
 class AlunoCreate(LoginRequiredMixin, CreateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'matrícula', 'cpf', 'telefone']
+    fields = ['nome', 'matricula', 'cpf', 'telefone']
     success_url = reverse_lazy('listar-aluno')
     extra_context = {
         'titulo': 'Cadastrar Aluno',
@@ -84,12 +84,20 @@ class ServidorCreate(LoginRequiredMixin, CreateView):
 class SolicitacaoCreate(LoginRequiredMixin, CreateView):
     model = Solicitacao
     template_name = 'paginasweb/form.html'
-    fields = ['solicitado_por', 'curso', 'turma', 'tipo_solicitação', 'justificativa']
+    # Remove do fields o atributo que tem relação com User - solicitado_por
+    fields = ['curso', 'turma', 'tipo_solicitação', 'justificativa']
     success_url = reverse_lazy('listar-solicitacao')
     extra_context = {
         'titulo': 'Protocolo online da Secretaria',
         'botao': 'Protocolar',
     }
+
+    def form_valid(self, form):
+        # pegar o usuário que está autenticado
+        form.instance.solicitado_por = self.request.user
+        url = super().form_valid(form)
+        return url
+
 
 
 class HistoricoCreate(LoginRequiredMixin, CreateView):
@@ -153,7 +161,7 @@ class StatusUpdate(LoginRequiredMixin, UpdateView):
 class AlunoUpdate(LoginRequiredMixin, UpdateView):
     model = Aluno
     template_name = 'paginasweb/form.html'
-    fields = ['nome', 'matrícula', 'cpf', 'telefone']
+    fields = ['nome', 'matricula', 'cpf', 'telefone']
     success_url = reverse_lazy('listar-aluno')
     extra_context = {
         'titulo': 'Atualização de dados do Aluno',

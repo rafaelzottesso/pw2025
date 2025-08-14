@@ -20,7 +20,10 @@ class Campus(models.Model):
 
     # Texto que vai aparecer no select de outras classes, como no cadastro de Curso, por exemplo.
     def __str__(self):
-        return self.nome
+        return f"{self.nome}"
+    
+    class Meta:
+        ordering = ['nome']
 
 
 class Curso(models.Model):
@@ -30,6 +33,9 @@ class Curso(models.Model):
 
     def __str__(self):
         return f"{self.nome} ({self.campus})"
+    
+    class Meta:
+        ordering = ['nome', 'campus']
 
 
 class TipoSolicitacao(models.Model):
@@ -42,6 +48,9 @@ class TipoSolicitacao(models.Model):
 
     def __str__(self):
         return self.descricao
+    
+    class Meta:
+        ordering = ['descricao']
 
 
 class Status(models.Model):
@@ -59,14 +68,17 @@ class Status(models.Model):
 
 class Aluno(models.Model):
     nome = models.CharField(max_length=100)
-    matrícula = models.CharField(max_length=100)
+    matricula = models.CharField(max_length=100)
     cpf = models.CharField(max_length=100)
     telefone = models.CharField(max_length=14)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='aluno')
 
     def __str__(self):
-        return f"{self.nome} ({self.matrícula})"
+        return f"{self.nome} ({self.matricula})"
+    
+    class Meta:
+        ordering = ['nome', 'matricula']
 
 
 class Servidor(models.Model):
@@ -77,10 +89,13 @@ class Servidor(models.Model):
 
     def __str__(self):
         return f"{self.nome} ({self.siape})"
+    
+    class Meta:
+        ordering = ['nome', 'siape']
 
 
 class Solicitacao(models.Model):
-    solicitado_por = models.ForeignKey(Aluno, on_delete=models.PROTECT)
+    solicitado_por = models.ForeignKey(User, on_delete=models.PROTECT)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
     turma = models.CharField(max_length=100)
     tipo_solicitação = models.ForeignKey(TipoSolicitacao, on_delete=models.PROTECT)
@@ -89,6 +104,9 @@ class Solicitacao(models.Model):
 
     def __str__(self):
         return f"#{self.pk} - {self.tipo_solicitação}"
+    
+    class Meta:
+        ordering = ['-cadastrado_em']
 
 
 class Historico(models.Model):
@@ -98,3 +116,6 @@ class Historico(models.Model):
 
     def __str__(self):
         return f"{self.solicitacao} - {self.status}"
+    
+    class Meta:
+        ordering = ['-cadastrado_em']
