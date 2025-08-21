@@ -6,7 +6,12 @@ from .views import CampusDelete, CursoDelete, TipoSolicitacaoDelete, StatusDelet
 from .views import CampusList, CursoList, TipoSolicitacaoList, StatusList, AlunoList, ServidorList, SolicitacaoList, HistoricoList
 from django.contrib.auth import views as auth_views
 
+from .views import CadastroUsuarioView
+
 urlpatterns = [
+    
+    # Criar uma rota "registrar" para cadastrar novos usuários
+    path("registrar/", CadastroUsuarioView.as_view(), name="registrar"),
     
     path('', IndexView.as_view(), name='index'),  # URL para a página inicial
     path("sobre/", SobreView.as_view(), name="sobre"),

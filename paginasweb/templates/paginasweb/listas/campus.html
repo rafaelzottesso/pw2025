@@ -5,31 +5,37 @@
 {% block conteudo %}
 <h3>Lista de Campus cadastrados</h3>
 
-<a href="{% url "cadastrar-campus" %}" class="btn btn-green">Cadastrar novo campus</a>
+<a href="{% url 'cadastrar-campus' %}" class="btn btn-success mb-3" style="background-color: #007C43; border-color: #007C43;">
+    Cadastrar novo campus
+</a>
 
-<table border="1">
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-success" style="background-color: #007C43; color: white;">
+            <tr>
+                <th>Nome</th>
+                <th>Cadastrado em</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for campus in object_list %}
+            <tr>
+                <td>{{ campus.nome }}</td>
+                <td>{{ campus.cadastrado_em }}</td>
+                <td>
+                    <a href="{% url 'editar-campus' campus.pk %}" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                    <a href="{% url 'excluir-campus' campus.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">Nenhum registro encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-    <tr>
-        <th>Nome</th>
-        <th>Cadastrado em</th>
-        <th>Opções</th>
-    </tr>
-
-    {% for campus in object_list %}
-    <tr>
-        <td>{{ campus.nome }}</td>
-        <td>{{ campus.cadastrado_em }}</td>
-        <td>
-            <a href="{% url "editar-campus" campus.pk %}">Editar</a>
-            <a href="{% url "excluir-campus" campus.pk %}">Excluir</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhum registro encontrado.</td>
-    </tr>
-    {% endfor %}
-
-</table>
 
 {% endblock %}

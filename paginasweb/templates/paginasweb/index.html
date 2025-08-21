@@ -3,63 +3,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     {% block titulo %}
     <title>Página Inicial</title>
     {% endblock titulo %}
 
-    <!-- Formatação do site com o Claude -- gerado por IA -->
-    {% comment %} 
-    <link rel="stylesheet" href="{% static 'css/estilo_gpt.css' %}">
-    <script src="{% static "js/menu.js" %}"></script>
-    {% endcomment %}
-    
-    <!-- Super formatação feita pelo professor -->
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}"> 
-    <link rel="stylesheet" href="{% static 'css/botoes.css' %}"> 
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
+    <style>
+        /* Customização do verde IFPR */
+        :root {
+            --ifpr-green: #007C43;
+        }
 
+        /* Navbar verde IFPR */
+        .navbar-custom {
+            background-color: var(--ifpr-green);
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link,
+        .navbar-custom .dropdown-toggle {
+            color: white;
+        }
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .dropdown-menu a:hover {
+            color: var(--ifpr-green);
+            background-color: white;
+        }
+
+        /* Rodapé fixo */
+        #rodape {
+            background-color: var(--ifpr-green);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        /* Espaço para o rodapé fixo e navbar fixa */
+        body {
+            padding-top: 70px; /* altura navbar fixa */
+            padding-bottom: 50px; /* altura do rodapé fixo */
+        }
+    </style>
 </head>
+
 <body>
 
-    <ul id="menu">
-        <li><a href="{% url "index" %}">Início</a></li>
-        <li><a href="{% url "sobre" %}">Sobre nós</a></li>
+    <!-- Navbar fixa topo -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top fs-5">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">IFPR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        {% if  request.user.is_authenticated %}  
-        <li><a href="{% url "listar-campus" %}">Campus</a></li>
-        <li><a href="{% url "listar-curso" %}">Curso</a></li>
-        <li><a href="{% url "listar-tipo-solicitacao" %}">Tipo Solicitação</a></li>
-        <li><a href="{% url "listar-status" %}">Status</a></li>
-        <li><a href="{% url "listar-aluno" %}">Aluno</a></li>
-        <li><a href="{% url "listar-servidor" %}">Servidor</a></li>
-        <li><a href="{% url "listar-solicitacao" %}">Solicitação</a></li>
-        <li><a href="{% url "listar-historico" %}">Histórico</a></li>
-        <li><a href="{% url "alterar-senha" %}">Alterar Senha</a></li>
-        <li><a href="{% url "logout" %}">Sair</a></li>
-        
-        {% else %}
-        <li><a href="{% url "login" %}">Entrar</a></li>
-        {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sobre' %}">Sobre nós</a>
+                    </li>
 
-    </ul>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownCadastros" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">Cadastros</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownCadastros">
+                            <li><a class="dropdown-item" href="{% url 'listar-campus' %}">Campus</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-curso' %}">Curso</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-tipo-solicitacao' %}">Tipo Solicitação</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-status' %}">Status</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-aluno' %}">Aluno</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-servidor' %}">Servidor</a></li>
+                        </ul>
+                    </li>
 
-    <div id="conteudo">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listar-solicitacao' %}">Solicitação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listar-historico' %}">Histórico</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuario" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">{{ request.user.username }}</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUsuario">
+                            <li><a class="dropdown-item" href="{% url 'alterar-senha' %}">Alterar Senha</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                        </ul>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registrar' %}">Registrar</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <main class="container my-4" id="conteudo">
         {% block conteudo %}
-
         <h3>Página inicial</h3>
-        
         <p>Bem vindos a página inicial de Programação Web</p>
-        
-        {%  endblock  %}
-    </div>
+        {% endblock %}
+    </main>
 
-
-    <div id="rodape">
+    <!-- Rodapé -->
+    <footer id="rodape">
         Desenvolvido por Rafael Zottesso
-    </div>
-    
+    </footer>
+
+    <!-- Bootstrap Bundle JS (inclui Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
