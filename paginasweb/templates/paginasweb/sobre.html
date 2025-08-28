@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block conteudo %}
-<h3>Sobre</h3>
+<h3 class="border-bottom pb-1 mb-3">A disciplina</h3>
 
 <p>
     A disciplina de <b>Programação para Web</b> tem como objetivo apresentar os conceitos fundamentais 
@@ -13,4 +13,52 @@
     design responsivo e acessibilidade, visando garantir que as aplicações sejam funcionais e 
     agradáveis em diferentes dispositivos e para todos os usuários.
 </p>
+
+<br>
+
+<h3 class="border-bottom pb-1 my-3">
+    🧾 Sobre o Sistema de Gerenciamento de Solicitações Acadêmicas
+</h3>
+
+<p>
+    Nosso sistema foi desenvolvido com o objetivo de facilitar e organizar o processo de gerenciamento de solicitações acadêmicas dentro de instituições de ensino. A plataforma permite que alunos e servidores façam, acompanhem e gerenciem diferentes tipos de solicitações de maneira centralizada, transparente e eficiente.
+</p>
+
+<p>
+    Através de um ambiente seguro e controlado, o sistema conta com funcionalidades que incluem:
+</p>
+
+<ul>
+    <li>Cadastro e gerenciamento de Campi e Cursos, permitindo a associação entre unidades e áreas acadêmicas.</li>
+
+    <li>Registro de Alunos e Servidores, com vinculação direta aos usuários do sistema para acesso personalizado.</li>
+
+    <li>Criação de Tipos de Solicitação, com definição de prazos internos e externos, garantindo previsibilidade e clareza no atendimento.</li>
+
+    <li>Abertura de Solicitações, nas quais os usuários informam a turma, justificativa e tipo de demanda.</li>
+
+    <li>Acompanhamento por Status, com um histórico detalhado de cada solicitação, tornando o processo auditável e rastreável.</li>
+
+    <li>Fluxo baseado em permissões, onde apenas determinados status permitem a edição de uma solicitação, assegurando integridade dos dados.</li>
+</ul>
+
+<p>
+    A proposta é proporcionar uma experiência intuitiva e eficiente, tanto para quem solicita quanto para quem atende, reduzindo burocracias e promovendo a agilidade na resposta às demandas acadêmicas.
+</p>
+
+<h5 class="my-3">🧩 Sobre o Diagrama de Classes</h5>
+<p> 
+    O diagrama de classes apresentado foi gerado com base nos modelos definidos no backend do sistema, desenvolvido em <strong>Django</strong> (framework web em Python). 
+    Para criar o diagrama visual, utilizamos a biblioteca <strong>Graphviz</strong>, que permite representar graficamente estruturas de dados por meio de <em>nós</em> e <em>relacionamentos</em>.
+</p>
+
+<p>
+   <img src="{% static "img/diagrama_classes.png" %}" alt="" class="img-fluid"> 
+</p>
+
+<p>
+    O código Python foi escrito para interpretar os relacionamentos entre os modelos — como chaves estrangeiras (<code>ForeignKey</code>) e vínculos com usuários — e gerar automaticamente a estrutura do diagrama.
+    O resultado é uma representação clara da arquitetura de dados, facilitando tanto a documentação quanto o entendimento do sistema.
+</p>
+
 {% endblock %}
