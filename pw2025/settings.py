@@ -40,7 +40,17 @@ INSTALLED_APPS = [
 
     # Ativa o app criado
     'paginasweb.apps.PaginaswebConfig',
+
+    # Instalar o crispy forms e o crispy Bootstrap 5
+    'crispy_forms',
+    'crispy_bootstrap5',
+
 ]
+
+# Configurar o Crispy com o Bootstrap 5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +99,7 @@ DATABASES = {
         "HOST": "aws-0-us-east-1.pooler.supabase.com",
         "PORT": "5432",
     }
-}
+}   
 
 # Sqlite local
 # DATABASES = {

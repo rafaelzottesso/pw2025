@@ -47,14 +47,14 @@
                     {% if request.user.is_authenticated %}
                     <!-- Links rápidos para todos os usuários -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'listar-solicitacao' %}"><i class="bi bi-collection"></i> Minhas Solicitações</a>
+                        <a class="nav-link" href="{% url 'minhas-solicitacoes' %}"><i class="bi bi-collection"></i> Minhas Solicitações</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'cadastrar-solicitacao' %}"><i class="bi bi-plus-circle"></i> Nova Solicitação</a>
                     </li>
             
                     <!-- Dropdown apenas para administradores -->
-                    {% if request.user.is_staff %}
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="bi bi-gear-fill"></i> Administração</a>
@@ -71,7 +71,7 @@
                             <li><a class="dropdown-item" href="{% url 'listar-servidor' %}"><i class="bi bi-person-badge"></i> Servidor</a></li>
                         </ul>
                     </li>
-                    {% endif %}
+                    
             
                     <!-- Histórico (se for geral) -->
                     <li class="nav-item">
@@ -130,7 +130,7 @@
                 </a>
                 </div>
                 <div class="col-md-4 mb-3">
-                <a href="{% url 'listar-solicitacao' %}" class="btn btn-outline-primary w-100 py-3">
+                <a href="{% url 'minhas-solicitacoes' %}" class="btn btn-outline-primary w-100 py-3">
                     <i class="bi bi-collection me-2"></i> Minhas Solicitações
                 </a>
                 </div>
@@ -149,23 +149,27 @@
                     <i class="bi bi-info-circle me-2"></i> Seus dados
                     </div>
                     <div class="card-body">
-                    <p><strong>Nome:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-                    <p><strong>Usuário:</strong> {{ user.username }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-
-                    {% if user.aluno %}
-                    <p><strong>Matrícula:</strong> {{ user.aluno.matricula }}</p>
-                    <p><strong>CPF:</strong> {{ user.aluno.cpf }}</p>
-                    {% elif user.servidor %}
-                    <p><strong>SIAPE:</strong> {{ user.servidor.siape }}</p>
-                    {% endif %}
+                        
+                        {% if user.aluno %}
+                        <hr>
+                        <p><strong>Nome:</strong> {{ user.aluno.nome }}</p>
+                        <p><strong>Matrícula:</strong> {{ user.aluno.matricula }}</p>
+                        <p><strong>CPF:</strong> {{ user.aluno.cpf }}</p>
+                        {% elif user.servidor %}
+                        <hr>
+                        <p><strong>Nome:</strong> {{ user.servidor.nome }}</p>
+                        <p><strong>SIAPE:</strong> {{ user.servidor.siape }}</p>
+                        {% endif %}
+                        <p><strong>Usuário:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        
                     </div>
                 </div>
                 </div>
 
                 <!-- Texto institucional / CTA -->
                 <div class="col-md-6 mb-4">
-                <div class="card bg-body-tertiary border-0 shadow-sm">
+                <div class="card bg-body-tertiary border-0 shadow">
                     <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-chat-left-text me-2"></i> Sobre o sistema</h5>
                     <p class="card-text">
@@ -205,7 +209,7 @@
             <!-- Sobre o sistema -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow">
                     <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-info-circle me-2"></i> Sobre o sistema</h5>
                     <p class="card-text">
