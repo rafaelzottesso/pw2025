@@ -207,6 +207,56 @@
                 </div>
             </div>
 
+            <!-- Estatísticas do projeto -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card text-center shadow-sm border-0">
+                        <div class="card-body">
+                            <i class="bi bi-geo-alt fs-2 text-success mb-2"></i>
+                            <h6 class="card-title mb-1">Campi cadastrados</h6>
+                            <p class="display-6 fw-bold mb-0">{{ qtde_campus }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card text-center shadow-sm border-0">
+                        <div class="card-body">
+                            <i class="bi bi-book fs-2 text-primary mb-2"></i>
+                            <h6 class="card-title mb-1">Cursos atendidos</h6>
+                            <p class="display-6 fw-bold mb-0">{{ qtde_cursos }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card text-center shadow-sm border-0">
+                        <div class="card-body">
+                            <i class="bi bi-collection fs-2 text-warning mb-2"></i>
+                            <h6 class="card-title mb-1">Solicitações realizadas</h6>
+                            <p class="display-6 fw-bold mb-0">{{ qtde_solicitacoes }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tipos de solicitação -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3"><i class="bi bi-ui-checks me-2"></i>Tipos de Solicitação</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for tipo in tiposSolicitacoes %}
+                                    <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                                        <i class="bi bi-check2-circle text-success me-1"></i>
+                                        {{ tipo }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Sobre o sistema -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
