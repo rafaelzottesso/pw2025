@@ -1,11 +1,37 @@
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 from .models import Campus, Curso, TipoSolicitacao, Status, Aluno, Servidor, Solicitacao, Historico
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User, Group
+from .forms import UsuarioCadastroForm
 
+
+# Crie a view no final do arquivo ou em outro local que faça sentido
+class CadastroUsuarioView(CreateView):
+    model = User
+    # Não tem o fields, pois ele é definido no forms.py
+    form_class = UsuarioCadastroForm
+    # Pode utilizar o seu form padrão
+    template_name = 'paginasweb/form.html'
+    success_url = reverse_lazy('login')
+    extra_context = {
+        'titulo': 'Cadastro de Usuário',
+        'botao': 'Cadastrar',
+    }
+
+    def form_valid(self, form):
+        # Faz o comportamento padrão do form_valid
+        url = super().form_valid(form)
+        # Busca ou cria um grupo com esse nome
+        grupo, criado = Group.objects.get_or_create(name='Estudante')
+        # Acessa o objeto criado e adiciona o usuário no grupo acima
+        self.object.groups.add(grupo)
+        # Retorna a URL de sucesso
+        return url
 
 class IndexView(TemplateView):
     template_name = 'paginasweb/index.html'
@@ -89,7 +115,7 @@ class SolicitacaoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('listar-solicitacao')
     extra_context = {
         'titulo': 'Protocolo online da Secretaria',
-        'botao': 'Protocolar',
+        'botao': 'Protocolar', 
     }
 
     def form_valid(self, form):
@@ -183,12 +209,18 @@ class ServidorUpdate(LoginRequiredMixin, UpdateView):
 class SolicitacaoUpdate(LoginRequiredMixin, UpdateView):
     model = Solicitacao
     template_name = 'paginasweb/form.html'
-    fields = ['solicitado_por', 'curso', 'turma', 'tipo_solicitação', 'justificativa']
+    # remover o 'solicitado_por' do fields
+    fields = ['curso', 'turma', 'tipo_solicitação', 'justificativa']
     success_url = reverse_lazy('listar-solicitacao')
     extra_context = {
         'titulo': 'Atualização de dados da Solicitação',
         'botao': 'Salvar',
     }
+
+    # Alterar o método que busca o objeto pelo ID (get_object)
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(Solicitacao, pk=self.kwargs['pk'], solicitado_por=self.request.user)
+        return obj
 
 
 class HistoricoUpdate(LoginRequiredMixin, UpdateView):
@@ -274,6 +306,11 @@ class SolicitacaoDelete(LoginRequiredMixin, DeleteView):
         'botao': 'Excluir',
     }
 
+    # Alterar o método que busca o objeto pelo ID (get_object)
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(Solicitacao, pk=self.kwargs['pk'], solicitado_por=self.request.user)
+        return obj
+
 
 class HistoricoDelete(LoginRequiredMixin, DeleteView):
     model = Historico
@@ -321,6 +358,17 @@ class ServidorList(LoginRequiredMixin, ListView):
 class SolicitacaoList(LoginRequiredMixin, ListView):
     model = Solicitacao
     template_name = 'paginasweb/listas/solicitacao.html'
+
+
+# Fazer uma herança para ter tudo que tem na SolicitacaoList
+class MinhasSolicitacoes(SolicitacaoList):
+    
+    def get_queryset(self):
+        # Como fazer consultas/filtros no django
+        # Classe.objects.all()  # Retorna todos os objetos
+        # Classe.objects.filter(atributio=algum_valor, a2=v2)
+        qs = Solicitacao.objects.filter(solicitado_por=self.request.user)
+        return qs
 
 
 class HistoricoList(LoginRequiredMixin, ListView):

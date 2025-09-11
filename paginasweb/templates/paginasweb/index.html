@@ -3,63 +3,242 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     {% block titulo %}
     <title>Página Inicial</title>
     {% endblock titulo %}
 
-    <!-- Formatação do site com o Claude -- gerado por IA -->
-    {% comment %} 
-    <link rel="stylesheet" href="{% static 'css/estilo_gpt.css' %}">
-    <script src="{% static "js/menu.js" %}"></script>
-    {% endcomment %}
-    
-    <!-- Super formatação feita pelo professor -->
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}"> 
-    <link rel="stylesheet" href="{% static 'css/botoes.css' %}"> 
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+
+    <!-- Ícones do Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 </head>
+
 <body>
 
-    <ul id="menu">
-        <li><a href="{% url "index" %}">Início</a></li>
-        <li><a href="{% url "sobre" %}">Sobre nós</a></li>
+    <!-- Navbar fixa topo -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top fs-6 shadow">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <i class="bi bi-building"></i> IFPR
+            </a>
+      
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}"><i class="bi bi-house-door"></i> Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sobre' %}"><i class="bi bi-info-circle"></i> Sobre</a>
+                    </li>
+            
+                    {% if request.user.is_authenticated %}
+                    <!-- Links rápidos para todos os usuários -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'minhas-solicitacoes' %}"><i class="bi bi-collection"></i> Minhas Solicitações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cadastrar-solicitacao' %}"><i class="bi bi-plus-circle"></i> Nova Solicitação</a>
+                    </li>
+            
+                    <!-- Dropdown apenas para administradores -->
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-gear-fill"></i> Administração</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownAdmin">
+                            <li><a class="dropdown-item" href="{% url 'listar-campus' %}"><i class="bi bi-geo-alt"></i> Campus</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-curso' %}"><i class="bi bi-book"></i> Curso</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-tipo-solicitacao' %}"><i class="bi bi-ui-checks"></i> Tipos de Solicitação</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-status' %}"><i class="bi bi-list-check"></i> Status</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-solicitacao' %}"><i class="bi bi-collection"></i> Solicitações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-aluno' %}"><i class="bi bi-person"></i> Aluno</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-servidor' %}"><i class="bi bi-person-badge"></i> Servidor</a></li>
+                        </ul>
+                    </li>
+                    
+            
+                    <!-- Histórico (se for geral) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listar-historico' %}"><i class="bi bi-clock-history"></i> Histórico</a>
+                    </li>
+            
+                    <!-- Menu do usuário -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuario" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-person-circle"></i> {{ request.user.username }}</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUsuario">
+                            <li><a class="dropdown-item" href="{% url 'alterar-senha' %}"><i class="bi bi-key"></i> Alterar Senha</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                        </ul>
+                    </li>
 
-        {% if  request.user.is_authenticated %}  
-        <li><a href="{% url "listar-campus" %}">Campus</a></li>
-        <li><a href="{% url "listar-curso" %}">Curso</a></li>
-        <li><a href="{% url "listar-tipo-solicitacao" %}">Tipo Solicitação</a></li>
-        <li><a href="{% url "listar-status" %}">Status</a></li>
-        <li><a href="{% url "listar-aluno" %}">Aluno</a></li>
-        <li><a href="{% url "listar-servidor" %}">Servidor</a></li>
-        <li><a href="{% url "listar-solicitacao" %}">Solicitação</a></li>
-        <li><a href="{% url "listar-historico" %}">Histórico</a></li>
-        <li><a href="{% url "alterar-senha" %}">Alterar Senha</a></li>
-        <li><a href="{% url "logout" %}">Sair</a></li>
-        
-        {% else %}
-        <li><a href="{% url "login" %}">Entrar</a></li>
-        {% endif %}
+                    {% else %}
 
-    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Entrar</a>
+                    </li>
 
-    <div id="conteudo">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registrar' %}"><i class="bi bi-person-plus"></i> Registrar</a>
+                    </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+      
+
+    <!-- Conteúdo principal -->
+    <main class="container my-4 py-3" id="conteudo">
         {% block conteudo %}
 
-        <h3>Página inicial</h3>
+        {% if request.user.is_authenticated %}
         
-        <p>Bem vindos a página inicial de Programação Web</p>
-        
-        {%  endblock  %}
-    </div>
+          <!-- Boas-vindas -->
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <i class="bi bi-person-circle fs-3 me-3"></i>
+                <div>
+                Bem-vindo(a), <strong>{{ user.first_name }} {{ user.last_name }}</strong>! <br>
+                Utilize os atalhos abaixo para navegar pelo sistema.
+                </div>
+            </div>
+
+            <!-- Ações rápidas -->
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                <a href="{% url 'cadastrar-solicitacao' %}" class="btn btn-success w-100 py-3">
+                    <i class="bi bi-plus-circle me-2"></i> Nova Solicitação
+                </a>
+                </div>
+                <div class="col-md-4 mb-3">
+                <a href="{% url 'minhas-solicitacoes' %}" class="btn btn-outline-primary w-100 py-3">
+                    <i class="bi bi-collection me-2"></i> Minhas Solicitações
+                </a>
+                </div>
+                <div class="col-md-4 mb-3">
+                <a href="{% url 'listar-historico' %}" class="btn btn-outline-secondary w-100 py-3">
+                    <i class="bi bi-clock-history me-2"></i> Histórico
+                </a>
+                </div>
+            </div>
+
+            <!-- Informações do usuário -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                    <i class="bi bi-info-circle me-2"></i> Seus dados
+                    </div>
+                    <div class="card-body">
+                        
+                        {% if user.aluno %}
+                        <hr>
+                        <p><strong>Nome:</strong> {{ user.aluno.nome }}</p>
+                        <p><strong>Matrícula:</strong> {{ user.aluno.matricula }}</p>
+                        <p><strong>CPF:</strong> {{ user.aluno.cpf }}</p>
+                        {% elif user.servidor %}
+                        <hr>
+                        <p><strong>Nome:</strong> {{ user.servidor.nome }}</p>
+                        <p><strong>SIAPE:</strong> {{ user.servidor.siape }}</p>
+                        {% endif %}
+                        <p><strong>Usuário:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        
+                    </div>
+                </div>
+                </div>
+
+                <!-- Texto institucional / CTA -->
+                <div class="col-md-6 mb-4">
+                <div class="card bg-body-tertiary border-0 shadow">
+                    <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-chat-left-text me-2"></i> Sobre o sistema</h5>
+                    <p class="card-text">
+                        Esta plataforma foi desenvolvida para gerenciar e agilizar o fluxo de solicitações acadêmicas e administrativas.
+                        Você pode registrar novas solicitações, acompanhar o andamento e consultar seu histórico completo de forma simples e rápida.
+                    </p>
+                    <p class="card-text text-muted fst-italic">Se você é novo por aqui, comece clicando em "Nova Solicitação".</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            {% else %}
+
+            <!-- Boas-vindas -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">Bem-vindo ao Sistema de Solicitações do IFPR</h1>
+                <p class="lead text-muted">
+                Aqui você pode realizar e acompanhar solicitações acadêmicas de forma simples, rápida e transparente.
+                </p>
+            </div>
+
+            <!-- Ações principais -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-3 mb-3">
+                <a href="{% url 'login' %}" class="btn btn-primary w-100 py-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
+                </a>
+                </div>
+                <div class="col-md-3 mb-3">
+                <a href="{% url 'registrar' %}" class="btn btn-outline-secondary w-100 py-3">
+                    <i class="bi bi-person-plus me-2"></i> Registrar-se
+                </a>
+                </div>
+            </div>
+
+            <!-- Sobre o sistema -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-info-circle me-2"></i> Sobre o sistema</h5>
+                    <p class="card-text">
+                        Este sistema foi desenvolvido para gerenciar as solicitações acadêmicas dentro do IFPR,
+                        oferecendo uma interface segura e eficiente tanto para alunos quanto para servidores.
+                        Através dele, é possível criar solicitações, acompanhar o andamento e visualizar o histórico completo.
+                    </p>
+                    <p class="card-text">
+                        Para acessar as funcionalidades, você precisa estar logado com sua conta institucional. Caso ainda não tenha uma, clique em <strong>Registrar-se</strong>.
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
 
 
-    <div id="rodape">
+            {% endif %}
+        
+
+        {% endblock %}
+    </main>
+
+    <!-- Rodapé -->
+    <footer id="rodape">
         Desenvolvido por Rafael Zottesso
-    </div>
-    
+    </footer>
+
+    <!-- Bootstrap Bundle JS (inclui Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

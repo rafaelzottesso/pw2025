@@ -40,23 +40,13 @@ INSTALLED_APPS = [
 
     # Ativa o app criado
     'paginasweb.apps.PaginaswebConfig',
-
-    # Instalar o crispy forms e o crispy Bootstrap 5
-    'crispy_forms',
-    'crispy_bootstrap5',
-
 ]
-
-# Configurar o Crispy com o Bootstrap 5
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     # Adicionado o whitenoise depois do SecurityMiddleware para servir arquivos estáticos no Azure
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -99,7 +89,7 @@ DATABASES = {
         "HOST": "aws-0-us-east-1.pooler.supabase.com",
         "PORT": "5432",
     }
-}   
+}
 
 # Sqlite local
 # DATABASES = {
@@ -159,7 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # Define o armazenamento de arquivos estáticos com o whitenoise
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ] # Configura o diretório de arquivos estáticos que fica na raiz do projeto

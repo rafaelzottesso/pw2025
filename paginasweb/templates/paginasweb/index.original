@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block titulo %}
+    <title>Página Inicial</title>
+    {% endblock titulo %}
+
+    <!-- Formatação do site com o Claude -- gerado por IA -->
+    {% comment %} 
+    <link rel="stylesheet" href="{% static 'css/estilo_gpt.css' %}">
+    <script src="{% static "js/menu.js" %}"></script>
+    {% endcomment %}
+    
+    <!-- Super formatação feita pelo professor -->
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/botoes.css' %}"> 
+
+
+</head>
+<body>
+
+    <ul id="menu">
+        <li><a href="{% url "index" %}">Início</a></li>
+        <li><a href="{% url "sobre" %}">Sobre nós</a></li>
+
+        {% if  request.user.is_authenticated %}  
+        <li><a href="{% url "listar-campus" %}">Campus</a></li>
+        <li><a href="{% url "listar-curso" %}">Curso</a></li>
+        <li><a href="{% url "listar-tipo-solicitacao" %}">Tipo Solicitação</a></li>
+        <li><a href="{% url "listar-status" %}">Status</a></li>
+        <li><a href="{% url "listar-aluno" %}">Aluno</a></li>
+        <li><a href="{% url "listar-servidor" %}">Servidor</a></li>
+        <li><a href="{% url "listar-solicitacao" %}">Solicitação</a></li>
+        <li><a href="{% url "listar-historico" %}">Histórico</a></li>
+        <li><a href="{% url "alterar-senha" %}">Alterar Senha</a></li>
+        <li><a href="{% url "logout" %}">Sair</a></li>
+        
+        {% else %}
+        <li><a href="{% url "login" %}">Entrar</a></li>
+        <li><a href="{% url "registrar" %}">Registrar</a></li>
+        {% endif %}
+
+    </ul>
+
+    <div id="conteudo">
+        {% block conteudo %}
+
+        <h3>Página inicial</h3>
+        
+        <p>Bem vindos a página inicial de Programação Web</p>
+        
+        {%  endblock  %}
+    </div>
+
+
+    <div id="rodape">
+        Desenvolvido por Rafael Zottesso
+    </div>
+    
+</body>
+</html>

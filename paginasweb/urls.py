@@ -4,9 +4,16 @@ from .views import CampusCreate, CursoCreate, TipoSolicitacaoCreate, StatusCreat
 from .views import CampusUpdate, CursoUpdate, TipoSolicitacaoUpdate, StatusUpdate, AlunoUpdate, ServidorUpdate, SolicitacaoUpdate, HistoricoUpdate
 from .views import CampusDelete, CursoDelete, TipoSolicitacaoDelete, StatusDelete, AlunoDelete, ServidorDelete, SolicitacaoDelete, HistoricoDelete
 from .views import CampusList, CursoList, TipoSolicitacaoList, StatusList, AlunoList, ServidorList, SolicitacaoList, HistoricoList
+from .views import CadastroUsuarioView
+from .views import MinhasSolicitacoes
+
+# Views de autenticação do Django
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    
+    # Criar uma rota "registrar" para cadastrar novos usuários
+    path("registrar/", CadastroUsuarioView.as_view(), name="registrar"),
     
     path('', IndexView.as_view(), name='index'),  # URL para a página inicial
     path("sobre/", SobreView.as_view(), name="sobre"),
@@ -74,5 +81,7 @@ urlpatterns = [
     path("listar/servidores/", ServidorList.as_view(), name="listar-servidor"),
     path("listar/solicitacoes/", SolicitacaoList.as_view(), name="listar-solicitacao"),
     path("listar/historicos/", HistoricoList.as_view(), name="listar-historico"),  # URL para listar históricos
+
+    path("listar/minhas-solicitacoes/", MinhasSolicitacoes.as_view(), name="minhas-solicitacoes"),  # URL para listar as solicitações do usuário logado
     
 ]
