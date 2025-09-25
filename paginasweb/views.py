@@ -8,7 +8,7 @@ from .models import Campus, Curso, TipoSolicitacao, Status, Aluno, Servidor, Sol
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.models import User, Group
-from .forms import UsuarioCadastroForm
+from .forms import UsuarioCadastroForm, AlunoCadastroForm, ServidorCadastroForm
 
 
 # Crie a view no final do arquivo ou em outro local que faça sentido
@@ -31,6 +31,66 @@ class CadastroUsuarioView(CreateView):
         grupo, criado = Group.objects.get_or_create(name='Estudante')
         # Acessa o objeto criado e adiciona o usuário no grupo acima
         self.object.groups.add(grupo)
+        # Retorna a URL de sucesso
+        return url
+
+
+class CadastroAlunoView(CreateView):
+    model = User
+    form_class = AlunoCadastroForm
+    template_name = 'paginasweb/form.html'
+    success_url = reverse_lazy('login')
+    extra_context = {
+        'titulo': 'Cadastro de Aluno',
+        'botao': 'Cadastrar',
+    }
+
+    def form_valid(self, form):
+        # Faz o comportamento padrão do form_valid
+        url = super().form_valid(form)
+        # Busca ou cria um grupo com esse nome
+        grupo, criado = Group.objects.get_or_create(name='Estudantes')
+        # Acessa o objeto criado e adiciona o usuário no grupo acima
+        self.object.groups.add(grupo)
+        
+        # Criar o registro de Aluno associado ao usuário
+        Aluno.objects.create(
+            nome=form.cleaned_data['nome'],
+            matricula=form.cleaned_data['matricula'],
+            cpf=form.cleaned_data['cpf'],
+            telefone=form.cleaned_data['telefone'],
+            usuario=self.object
+        )
+        
+        # Retorna a URL de sucesso
+        return url
+
+
+class CadastroServidorView(CreateView):
+    model = User
+    form_class = ServidorCadastroForm
+    template_name = 'paginasweb/form.html'
+    success_url = reverse_lazy('login')
+    extra_context = {
+        'titulo': 'Cadastro de Servidor',
+        'botao': 'Cadastrar',
+    }
+
+    def form_valid(self, form):
+        # Faz o comportamento padrão do form_valid
+        url = super().form_valid(form)
+        # Busca ou cria um grupo com esse nome
+        grupo, criado = Group.objects.get_or_create(name='Servidores')
+        # Acessa o objeto criado e adiciona o usuário no grupo acima
+        self.object.groups.add(grupo)
+        
+        # Criar o registro de Servidor associado ao usuário
+        Servidor.objects.create(
+            nome=form.cleaned_data['nome'],
+            siape=form.cleaned_data['siape'],
+            usuario=self.object
+        )
+        
         # Retorna a URL de sucesso
         return url
 

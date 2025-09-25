@@ -96,8 +96,13 @@
                         <a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Entrar</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registrar' %}"><i class="bi bi-person-plus"></i> Registrar</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownRegistro" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-person-plus"></i> Registrar</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownRegistro">
+                            <li><a class="dropdown-item" href="{% url 'registrar-aluno' %}"><i class="bi bi-person"></i> Registrar como Aluno</a></li>
+                            <li><a class="dropdown-item" href="{% url 'registrar-servidor' %}"><i class="bi bi-person-badge"></i> Registrar como Servidor</a></li>
+                        </ul>
                     </li>
 
                     {% endif %}
@@ -201,8 +206,13 @@
                 </a>
                 </div>
                 <div class="col-md-3 mb-3">
-                <a href="{% url 'registrar' %}" class="btn btn-outline-secondary w-100 py-3">
-                    <i class="bi bi-person-plus me-2"></i> Registrar-se
+                <a href="{% url 'registrar-aluno' %}" class="btn btn-outline-success w-100 py-3">
+                    <i class="bi bi-person me-2"></i> Registrar Aluno
+                </a>
+                </div>
+                <div class="col-md-3 mb-3">
+                <a href="{% url 'registrar-servidor' %}" class="btn btn-outline-info w-100 py-3">
+                    <i class="bi bi-person-badge me-2"></i> Registrar Servidor
                 </a>
                 </div>
             </div>
@@ -269,7 +279,7 @@
                         Através dele, é possível criar solicitações, acompanhar o andamento e visualizar o histórico completo.
                     </p>
                     <p class="card-text">
-                        Para acessar as funcionalidades, você precisa estar logado com sua conta institucional. Caso ainda não tenha uma, clique em <strong>Registrar-se</strong>.
+                        Para acessar as funcionalidades, você precisa estar logado com sua conta institucional. Caso ainda não tenha uma, escolha <strong>Registrar Aluno</strong> ou <strong>Registrar Servidor</strong> de acordo com seu perfil.
                     </p>
                     </div>
                 </div>
