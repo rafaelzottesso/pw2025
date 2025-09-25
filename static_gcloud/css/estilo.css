@@ -1,0 +1,37 @@
+ /* Customização do verde IFPR */
+ :root {
+    --ifpr-green: #007C43;
+}
+
+/* Navbar verde IFPR */
+.navbar-custom {
+    background-color: var(--ifpr-green);
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .dropdown-toggle {
+    color: white;
+}
+.navbar-custom .nav-link:hover,
+.navbar-custom .dropdown-menu a:hover {
+    color: var(--ifpr-green);
+    background-color: white;
+}
+
+/* Rodapé fixo */
+#rodape {
+    background-color: var(--ifpr-green);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* Espaço para o rodapé fixo e navbar fixa */
+body {
+    padding-top: 70px; /* altura navbar fixa */
+    padding-bottom: 50px; /* altura do rodapé fixo */
+}
