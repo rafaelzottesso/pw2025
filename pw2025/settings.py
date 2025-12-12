@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Ativa o app criado
     'paginasweb.apps.PaginaswebConfig',
+    'relatorios.apps.RelatoriosConfig',
 
     # Instalar o crispy forms e o crispy Bootstrap 5
     'crispy_forms',

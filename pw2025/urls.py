@@ -22,4 +22,7 @@ urlpatterns = [
 
     # Inclui todas as urls criadas lá no app paginasweb
     path('', include('paginasweb.urls')),
+    
+    # Inclui as urls do app relatorios
+    path('relatorios/', include('relatorios.urls')),
 ]

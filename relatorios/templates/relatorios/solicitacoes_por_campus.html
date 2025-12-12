@@ -1,0 +1,124 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Solicitações por Campus</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-geo-alt"></i> Solicitações por Campus</h2>
+        <a href="{% url 'relatorios-dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
+        </a>
+    </div>
+    
+    <div class="row">
+        <!-- Gráfico -->
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <i class="bi bi-bar-chart-line-fill"></i> Distribuição por Campus
+                </div>
+                <div class="card-body">
+                    <div id="chartCampus"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabela de dados -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <i class="bi bi-table"></i> Dados Detalhados
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Campus</th>
+                                <th class="text-end">Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in campus_data %}
+                            <tr>
+                                <td>{{ item.curso__campus__nome }}</td>
+                                <td class="text-end"><strong>{{ item.total }}</strong></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="2" class="text-center">Nenhum dado disponível</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    var options = {
+        series: [{
+            name: 'Solicitações',
+            data: {{ values|safe }}
+        }],
+        chart: {
+            type: 'bar',
+            height: 400
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                dataLabels: {
+                    position: 'top',
+                },
+            }
+        },
+        colors: ['#ffc107'],
+        dataLabels: {
+            enabled: true,
+            offsetY: -20,
+            style: {
+                fontSize: '12px',
+                colors: ["#304758"]
+            }
+        },
+        xaxis: {
+            categories: {{ labels|safe }},
+            position: 'bottom',
+            labels: {
+                rotate: -45,
+                rotateAlways: false,
+            },
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Quantidade de Solicitações'
+            }
+        },
+        title: {
+            text: 'Solicitações por Campus',
+            align: 'center',
+            style: {
+                fontSize: '16px'
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chartCampus"), options);
+    chart.render();
+</script>
+{% endblock %}
