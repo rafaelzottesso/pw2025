@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, Q
+from django.db.models import Count, Q, OuterRef, Subquery
+from django.db.models.functions import TruncMonth
 from paginasweb.models import Solicitacao, Status, TipoSolicitacao, Campus, Curso, Historico
 import json
 
@@ -32,17 +33,22 @@ class RelatorioSolicitacoesPorStatusView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Obter o último status de cada solicitação através do histórico
-        solicitacoes = Solicitacao.objects.all()
-        status_count = {}
+        # Subquery para obter o último histórico de cada solicitação
+        ultimo_historico_subquery = Historico.objects.filter(
+            solicitacao=OuterRef('pk')
+        ).order_by('-cadastrado_em').values('status__nome')[:1]
         
-        for solicitacao in solicitacoes:
-            ultimo_historico = Historico.objects.filter(solicitacao=solicitacao).order_by('-cadastrado_em').first()
-            if ultimo_historico:
-                status_nome = ultimo_historico.status.nome
-                status_count[status_nome] = status_count.get(status_nome, 0) + 1
-            else:
-                status_count['Sem Status'] = status_count.get('Sem Status', 0) + 1
+        # Anotar cada solicitação com seu último status
+        solicitacoes_com_status = Solicitacao.objects.annotate(
+            ultimo_status=Subquery(ultimo_historico_subquery)
+        ).values('ultimo_status').annotate(
+            total=Count('id')
+        )
+        
+        status_count = {}
+        for item in solicitacoes_com_status:
+            status_nome = item['ultimo_status'] if item['ultimo_status'] else 'Sem Status'
+            status_count[status_nome] = item['total']
         
         # Preparar dados para o gráfico
         context['labels'] = json.dumps(list(status_count.keys()))
@@ -127,17 +133,17 @@ class RelatorioTimelineSolicitacoesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Agrupar solicitações por mês
-        from django.db.models.functions import TruncMonth
-        
-        timeline_data = Solicitacao.objects.annotate(
+        # Agrupar solicitações por mês, excluindo registros sem data
+        timeline_data = Solicitacao.objects.filter(
+            cadastrado_em__isnull=False
+        ).annotate(
             mes=TruncMonth('cadastrado_em')
         ).values('mes').annotate(
             total=Count('id')
         ).order_by('mes')
         
         # Formatar datas para o gráfico
-        labels = [item['mes'].strftime('%b/%Y') for item in timeline_data]
+        labels = [item['mes'].strftime('%b/%Y') if item['mes'] else 'N/A' for item in timeline_data]
         values = [item['total'] for item in timeline_data]
         
         context['labels'] = json.dumps(labels)
