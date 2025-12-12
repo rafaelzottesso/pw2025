@@ -1,0 +1,123 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Dashboard de Relatórios</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <h2 class="mb-4"><i class="bi bi-bar-chart-fill"></i> Dashboard de Relatórios</h2>
+    
+    <!-- Cards com estatísticas gerais -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow-sm border-0 bg-primary text-white">
+                <div class="card-body">
+                    <i class="bi bi-collection fs-2 mb-2"></i>
+                    <h6 class="card-title mb-1">Total de Solicitações</h6>
+                    <p class="display-6 fw-bold mb-0">{{ total_solicitacoes }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow-sm border-0 bg-success text-white">
+                <div class="card-body">
+                    <i class="bi bi-ui-checks fs-2 mb-2"></i>
+                    <h6 class="card-title mb-1">Tipos de Solicitação</h6>
+                    <p class="display-6 fw-bold mb-0">{{ total_tipos }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow-sm border-0 bg-warning text-white">
+                <div class="card-body">
+                    <i class="bi bi-geo-alt fs-2 mb-2"></i>
+                    <h6 class="card-title mb-1">Campus</h6>
+                    <p class="display-6 fw-bold mb-0">{{ total_campus }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow-sm border-0 bg-info text-white">
+                <div class="card-body">
+                    <i class="bi bi-book fs-2 mb-2"></i>
+                    <h6 class="card-title mb-1">Cursos</h6>
+                    <p class="display-6 fw-bold mb-0">{{ total_cursos }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Links para relatórios detalhados -->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-3"><i class="bi bi-file-earmark-bar-graph"></i> Relatórios Disponíveis</h4>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-list-check text-primary"></i> Solicitações por Status</h5>
+                    <p class="card-text">Visualize a distribuição das solicitações por status atual.</p>
+                    <a href="{% url 'relatorio-solicitacoes-status' %}" class="btn btn-primary">
+                        <i class="bi bi-graph-up"></i> Ver Relatório
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-ui-checks text-success"></i> Solicitações por Tipo</h5>
+                    <p class="card-text">Veja quais tipos de solicitações são mais comuns.</p>
+                    <a href="{% url 'relatorio-solicitacoes-tipo' %}" class="btn btn-success">
+                        <i class="bi bi-graph-up"></i> Ver Relatório
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-geo-alt text-warning"></i> Solicitações por Campus</h5>
+                    <p class="card-text">Análise da distribuição de solicitações por campus.</p>
+                    <a href="{% url 'relatorio-solicitacoes-campus' %}" class="btn btn-warning">
+                        <i class="bi bi-graph-up"></i> Ver Relatório
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-book text-info"></i> Solicitações por Curso</h5>
+                    <p class="card-text">Top 10 cursos com maior número de solicitações.</p>
+                    <a href="{% url 'relatorio-solicitacoes-curso' %}" class="btn btn-info">
+                        <i class="bi bi-graph-up"></i> Ver Relatório
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-clock-history text-secondary"></i> Timeline de Solicitações</h5>
+                    <p class="card-text">Evolução temporal do número de solicitações.</p>
+                    <a href="{% url 'relatorio-timeline-solicitacoes' %}" class="btn btn-secondary">
+                        <i class="bi bi-graph-up"></i> Ver Relatório
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

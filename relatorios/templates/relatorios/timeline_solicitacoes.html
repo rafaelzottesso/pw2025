@@ -1,0 +1,139 @@
+{% extends "paginasweb/index.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Timeline de Solicitações</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-clock-history"></i> Timeline de Solicitações</h2>
+        <a href="{% url 'relatorios-dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
+        </a>
+    </div>
+    
+    <div class="row">
+        <!-- Gráfico -->
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <i class="bi bi-graph-up"></i> Evolução Temporal das Solicitações
+                </div>
+                <div class="card-body">
+                    <div id="chartTimeline"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabela de dados -->
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <i class="bi bi-table"></i> Dados por Período
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Período</th>
+                                    <th class="text-end">Quantidade de Solicitações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in timeline_data %}
+                                <tr>
+                                    <td>{{ item.mes|date:"F/Y" }}</td>
+                                    <td class="text-end"><strong>{{ item.total }}</strong></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center">Nenhum dado disponível</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    var options = {
+        series: [{
+            name: 'Solicitações',
+            data: {{ values|safe }}
+        }],
+        chart: {
+            type: 'area',
+            height: 400,
+            zoom: {
+                enabled: true
+            }
+        },
+        dataLabels: {
+            enabled: true
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 3
+        },
+        colors: ['#007C43'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.3,
+                stops: [0, 90, 100]
+            }
+        },
+        xaxis: {
+            categories: {{ labels|safe }},
+            title: {
+                text: 'Período'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Quantidade de Solicitações'
+            }
+        },
+        title: {
+            text: 'Evolução Temporal das Solicitações',
+            align: 'center',
+            style: {
+                fontSize: '16px'
+            }
+        },
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'],
+                opacity: 0.5
+            },
+        },
+        markers: {
+            size: 5,
+            colors: ['#007C43'],
+            strokeColors: '#fff',
+            strokeWidth: 2,
+            hover: {
+                size: 7
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chartTimeline"), options);
+    chart.render();
+</script>
+{% endblock %}
